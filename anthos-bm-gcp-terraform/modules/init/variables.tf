@@ -94,3 +94,9 @@ variable "priv_key_path_template" {
   type        = string
   default     = "../../resources/.ssh-key-%s.priv"
 }
+
+variable "ssh_firewall_name" {
+  description = ""
+  type        = string
+  default     = null
+}

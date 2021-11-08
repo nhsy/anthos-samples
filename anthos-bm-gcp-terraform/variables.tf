@@ -136,6 +136,16 @@ variable "primary_apis" {
   type        = list(string)
   default = [
     "cloudresourcemanager.googleapis.com",
+    "compute.googleapis.com",
+    "container.googleapis.com",
+    "gkeconnect.googleapis.com",
+    "gkehub.googleapis.com",
+    "iam.googleapis.com",
+    "iap.googleapis.com",
+    "logging.googleapis.com",
+    "monitoring.googleapis.com",
+    "stackdriver.googleapis.com",
+    "serviceusage.googleapis.com",
   ]
 }
 
@@ -145,15 +155,6 @@ variable "secondary_apis" {
   default = [
     "anthos.googleapis.com",
     "anthosgke.googleapis.com",
-    "container.googleapis.com",
-    "gkeconnect.googleapis.com",
-    "gkehub.googleapis.com",
-    "serviceusage.googleapis.com",
-    "stackdriver.googleapis.com",
-    "monitoring.googleapis.com",
-    "logging.googleapis.com",
-    "iam.googleapis.com",
-    "compute.googleapis.com",
   ]
 }
 
@@ -177,3 +178,9 @@ variable "instance_count" {
   }
 }
 # [END anthos_bm_node_prefix]
+
+variable "preemptible" {
+  description = "Allow the compute instances to be preempted"
+  type        = bool
+  default     = false
+}

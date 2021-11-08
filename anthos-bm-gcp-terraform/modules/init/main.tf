@@ -92,12 +92,36 @@ resource "null_resource" "exec_init_script" {
     destination = "${local.home_dir}/run_initialization_checks.sh"
   }
 
+  provisioner "file" {
+    source      = "${var.resources_path}/rook_install.sh"
+    destination = "${local.home_dir}/rook_install.sh"
+  }
+
+  provisioner "file" {
+    source      = "${var.resources_path}/abm_install.sh"
+    destination = "${local.home_dir}/abm_install.sh"
+  }
+
+  provisioner "file" {
+    source      = "${var.resources_path}/abm_reset.sh"
+    destination = "${local.home_dir}/abm_reset.sh"
+  }
+
+  provisioner "file" {
+    source      = "${var.resources_path}/env.sh"
+    destination = "${local.home_dir}/env.sh"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "chmod 0600 ${local.home_dir}/${local.cluster_yaml_file_name}",
       "chmod 0600 ${local.home_dir}/init.vars",
-      "chmod 0100 ${local.home_dir}/init.sh",
-      "chmod 0100 ${local.home_dir}/run_initialization_checks.sh"
+      "chmod 0700 ${local.home_dir}/init.sh",
+      "chmod 0700 ${local.home_dir}/run_initialization_checks.sh",
+      "chmod 0700 ${local.home_dir}/rook_install.sh",
+      "chmod 0700 ${local.home_dir}/abm_install.sh",
+      "chmod 0700 ${local.home_dir}/abm_reset.sh",
+      "chmod 0700 ${local.home_dir}/env.sh",
     ]
   }
 

@@ -64,11 +64,12 @@ module "enable_google_apis_primary" {
 module "enable_google_apis_secondary" {
   source  = "terraform-google-modules/project-factory/google//modules/project_services"
   version = "11.2.3"
-  # fetched from previous module to explicitely express dependency
+  # fetched from previous module to explicitly express dependency
   project_id                  = module.enable_google_apis_primary.project_id
   depends_on                  = [module.enable_google_apis_primary]
   activate_apis               = var.secondary_apis
-  disable_services_on_destroy = false
+  disable_services_on_destroy = true
+  disable_dependent_services  = false
 }
 
 module "create_service_accounts" {
@@ -112,6 +113,7 @@ module "instance_template" {
   tags                 = var.tags             # --tags http-server,https-server
   min_cpu_platform     = var.min_cpu_platform # --min-cpu-platform "Intel Haswell"
   can_ip_forward       = true                 # --can-ip-forward
+  preemptible          = var.preemptible
   # Disable oslogin explicitly since we rely on metadata based ssh-key (issues/70).
   metadata = {
     enable-oslogin = "false"
@@ -211,4 +213,17 @@ module "init_hosts" {
   priv_key_path_template = local.private_key_file_path_template
   init_vars_file         = format(local.init_script_vars_file_path_template, each.value)
   cluster_yaml_path      = local.cluster_yaml_file
+  ssh_firewall_name      = module.firewall.ssh_firewall_name
+}
+
+resource "random_string" "default" {
+  length  = 4
+  special = false
+}
+
+module "firewall" {
+  source = "./modules/firewall"
+
+  network   = var.network
+  unique_id = lower(random_string.default.result)
 }
