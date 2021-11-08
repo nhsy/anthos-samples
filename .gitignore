@@ -26,3 +26,8 @@ files.log
 legacy_headder_check.log
 new_header_check.log
 admin-openrc.sh
+
+.config
+.idea
+.ssh
+terraform.tfvars.json
