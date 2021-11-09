@@ -13,6 +13,12 @@ kubectl create -f crds.yaml -f common.yaml -f operator.yaml
 sleep 5
 kubectl create -f cluster.yaml
 sleep 5
-kubectl create -f csi/rbd/storageclass.yaml
+if [[ "$1" == "single" ]];then
+  kubectl create -f csi/rbd/storageclass-test.yaml
+else
+  kubectl create -f csi/rbd/storageclass.yaml
+fi
 sleep 5
 kubectl patch storageclass rook-ceph-block -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+sleep 5
+kubectl create -f toolbox.yaml

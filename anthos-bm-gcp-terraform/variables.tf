@@ -96,8 +96,9 @@ variable "boot_disk_size" {
   description = "Size of the primary boot disk to be attached to the Compute Engine VMs in GBs"
   type        = map(number)
   default = {
-    default : 20,
-    worker_1 : 50
+    admin : 20,
+    controlplane : 200
+    worker_1 : 200
     worker_2 : 50
   }
 }
