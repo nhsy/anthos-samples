@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-module "external_ip_addresses" {
-  source   = "../external-ip"
-  region   = var.region
-  ip_names = var.vm_names
-}
+#module "external_ip_addresses" {
+#  source   = "../external-ip"
+#  region   = var.region
+#  ip_names = var.vm_names
+#}
 
 module "compute_instance" {
   source            = "terraform-google-modules/vm/google//modules/compute_instance"
@@ -29,7 +29,7 @@ module "compute_instance" {
   hostname          = each.value
   network           = var.network # --network default
   access_config = [{
-    nat_ip       = module.external_ip_addresses.ips[each.value].address
-    network_tier = module.external_ip_addresses.ips[each.value].tier
+    nat_ip       = null #module.external_ip_addresses.ips[each.value].address
+    network_tier = null #module.external_ip_addresses.ips[each.value].tier
   }]
 }
