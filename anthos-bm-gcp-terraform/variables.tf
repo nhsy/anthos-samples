@@ -58,8 +58,12 @@ variable "min_cpu_platform" {
 
 variable "machine_type" {
   description = "Google Cloud machine type to use when provisioning the Compute Engine VMs"
-  type        = string
-  default     = "n1-standard-8"
+  type        = map(string)
+  default = {
+    admin : "n1-standard-2",
+    controlplane : "n1-standard-4",
+    worker : "n1-standard-4",
+  }
 }
 
 variable "image" {

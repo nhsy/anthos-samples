@@ -105,7 +105,7 @@ module "admin_instance_template" {
   source_image         = var.image                # --image=ubuntu-2004-focal-v20210429
   source_image_family  = var.image_family         # --image-family=ubuntu-2004-lts
   source_image_project = var.image_project        # --image-project=ubuntu-os-cloud
-  machine_type         = var.machine_type         # --machine-type $MACHINE_TYPE
+  machine_type         = var.machine_type.admin   # --machine-type $MACHINE_TYPE
   disk_size_gb         = var.boot_disk_size.admin # --boot-disk-size 20G
   disk_type            = var.boot_disk_type       # --boot-disk-type pd-ssd
   network              = var.network              # --network default
@@ -140,7 +140,7 @@ module "controlplane_instance_template" {
   source_image         = var.image                       # --image=ubuntu-2004-focal-v20210429
   source_image_family  = var.image_family                # --image-family=ubuntu-2004-lts
   source_image_project = var.image_project               # --image-project=ubuntu-os-cloud
-  machine_type         = var.machine_type                # --machine-type $MACHINE_TYPE
+  machine_type         = var.machine_type.controlplane   # --machine-type $MACHINE_TYPE
   disk_size_gb         = var.boot_disk_size.controlplane # --boot-disk-size 200G
   disk_type            = var.boot_disk_type              # --boot-disk-type pd-ssd
   network              = var.network                     # --network default
@@ -175,7 +175,7 @@ module "worker_instance_template" {
   source_image         = var.image                   # --image=ubuntu-2004-focal-v20210429
   source_image_family  = var.image_family            # --image-family=ubuntu-2004-lts
   source_image_project = var.image_project           # --image-project=ubuntu-os-cloud
-  machine_type         = var.machine_type            # --machine-type $MACHINE_TYPE
+  machine_type         = var.machine_type.worker     # --machine-type $MACHINE_TYPE
   disk_size_gb         = var.boot_disk_size.worker_1 # --boot-disk-size 200G
   disk_type            = var.boot_disk_type          # --boot-disk-type pd-ssd
   network              = var.network                 # --network default
