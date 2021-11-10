@@ -22,11 +22,15 @@ apply: init
 	$(call header,$@)
 	@scripts/tf-wrapper.sh $@ -auto-approve
 
+.PHONY: output
+output:
+	$(call header,$@)
+	@scripts/tf-wrapper.sh $@
+
 .PHONY: destroy
 destroy: init validate
 	$(call header,$@)
 	@scripts/tf-wrapper.sh $@ -auto-approve
-
 
 .PHONY: clean
 clean:
