@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+set -e
 
 export CLUSTER_ID=anthos-gce-cluster
 export KUBECONFIG=$HOME/bmctl-workspace/$CLUSTER_ID/$CLUSTER_ID-kubeconfig
@@ -11,11 +11,13 @@ mv rook-* rook
 cd rook/cluster/examples/kubernetes/ceph
 kubectl create -f crds.yaml -f common.yaml -f operator.yaml
 sleep 5
-kubectl create -f cluster.yaml
-sleep 5
 if [[ "$1" == "single" ]];then
+  kubectl create -f cluster-test.yaml
+  sleep 5
   kubectl create -f csi/rbd/storageclass-test.yaml
 else
+  kubectl create -f cluster.yaml
+  sleep 5
   kubectl create -f csi/rbd/storageclass.yaml
 fi
 sleep 5
